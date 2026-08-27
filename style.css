@@ -763,7 +763,7 @@ button, input, select, textarea {
     border-color: var(--color-accent);
 }
 
-@keyframes icon360 {
+@keyframes serviceIconHover360 {
     from {
         transform: rotate(0deg);
     }
@@ -775,7 +775,7 @@ button, input, select, textarea {
 .service-icon.animate-rotate svg,
 .service-icon.animate-rotate img,
 .service-icon.animate-rotate i {
-    animation: icon360 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: serviceIconHover360 0.65s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     transform-origin: center center;
     transform-box: fill-box;
     will-change: transform;

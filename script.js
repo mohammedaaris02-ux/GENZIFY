@@ -338,21 +338,29 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', openGmailCompose);
     });
 
-    // Service Card Icon 360 Rotation Click Animation
+    // Service Card Icon 360 Rotation Animation (Hover for Desktop, Tap for Mobile)
     const serviceCards = document.querySelectorAll('.service-card');
+    const isHoverCapable = window.matchMedia('(hover: hover)').matches;
+
     serviceCards.forEach(card => {
-        card.addEventListener('click', () => {
+        const triggerAnim = () => {
             const iconWrapper = card.querySelector('.service-icon');
             if (iconWrapper) {
                 iconWrapper.classList.remove('animate-rotate');
-                void iconWrapper.offsetWidth; // Force reflow
+                void iconWrapper.offsetWidth; // Force browser reflow
                 iconWrapper.classList.add('animate-rotate');
                 
                 iconWrapper.addEventListener('animationend', () => {
                     iconWrapper.classList.remove('animate-rotate');
                 }, { once: true });
             }
-        });
+        };
+
+        if (isHoverCapable) {
+            card.addEventListener('mouseenter', triggerAnim);
+        } else {
+            card.addEventListener('click', triggerAnim);
+        }
     });
 });
 
