@@ -66,7 +66,14 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
     font-size: 16px;
+}
+
+section[id],
+div[id="contact-form"],
+div[id="contact"] {
+    scroll-margin-top: 100px;
 }
 
 body {
@@ -329,9 +336,11 @@ button, input, select, textarea {
 }
 
 .brand-wrap {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
 .brand-logo-text {
@@ -380,11 +389,12 @@ button, input, select, textarea {
 }
 
 .header-logo-img {
-    height: 36px;
+    height: 34px;
     width: auto;
-    max-width: 130px;
+    max-width: 140px;
     object-fit: contain;
     display: block;
+    flex-shrink: 0;
     transition: transform var(--transition-fast), filter var(--transition-fast);
 }
 
@@ -416,15 +426,20 @@ button, input, select, textarea {
 
 .brand-sub {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
+    font-size: 0.72rem;
+    font-weight: 600;
     color: var(--color-accent);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     padding-left: 10px;
-    border-left: 1px solid var(--color-border);
+    border-left: 1.5px solid var(--color-border);
     display: inline-flex;
     align-items: center;
-    height: 22px;
+    height: 20px;
+    line-height: 1;
+    white-space: nowrap;
+    flex-shrink: 0;
+    user-select: none;
 }
 
 .nav-links-list {
@@ -1449,7 +1464,12 @@ button, input, select, textarea {
    17. Responsive Layout Breakpoints
    -------------------------------------------------------------------------- */
 @media (max-width: 1024px) {
-    .header-logo-img { height: 32px; }
+    .header-logo-img { height: 30px; }
+    .brand-sub {
+        height: 18px;
+        font-size: 0.68rem;
+        padding-left: 8px;
+    }
     .footer-logo-img { height: 44px; }
     .hero-grid { grid-template-columns: 1fr; }
     .service-card { width: calc(50% - 12px); }
@@ -1466,10 +1486,19 @@ body {
 }
 
 @media (max-width: 768px) {
+    html {
+        scroll-padding-top: 80px;
+    }
+    section[id],
+    div[id="contact-form"],
+    div[id="contact"] {
+        scroll-margin-top: 80px;
+    }
+
     .nav-links-list, .nav-cta-desktop { display: none; }
     .mobile-nav-toggle { display: flex; }
     .service-card { width: 100%; }
-    .header-logo-img { height: 28px; }
+    .header-logo-img { height: 26px; }
     .footer-logo-img { height: 40px; }
 
     /* Mobile Header Layout Adjustments */
@@ -1482,10 +1511,13 @@ body {
         border-radius: 16px;
     }
     .brand-wrap {
-        gap: 6px;
+        gap: 8px;
     }
     .brand-sub {
-        padding-left: 6px;
+        padding-left: 8px;
+        height: 16px;
+        font-size: 0.62rem;
+        letter-spacing: 0.8px;
     }
 
     /* Mobile Content Center Alignment */
@@ -1607,7 +1639,19 @@ body {
 }
 
 @media (max-width: 480px) {
-    .header-logo-img { height: 24px; }
+    .navbar-pill {
+        padding: 8px 14px;
+    }
+    .header-logo-img { height: 22px; }
+    .brand-wrap {
+        gap: 6px;
+    }
+    .brand-sub {
+        padding-left: 6px;
+        height: 14px;
+        font-size: 0.58rem;
+        letter-spacing: 0.6px;
+    }
     .footer-logo-img { height: 34px; }
     .hero-heading {
         font-size: 2.1rem;
@@ -1618,6 +1662,22 @@ body {
     .process-row-desktop { grid-template-columns: 1fr !important; }
     .hero-stats-row { grid-template-columns: 1fr !important; gap: 16px; }
     .footer-cols { grid-template-columns: 1fr !important; }
+}
+
+@media (max-width: 360px) {
+    .navbar-pill {
+        padding: 7px 10px;
+    }
+    .header-logo-img { height: 20px; }
+    .brand-wrap {
+        gap: 5px;
+    }
+    .brand-sub {
+        padding-left: 5px;
+        height: 13px;
+        font-size: 0.52rem;
+        letter-spacing: 0.4px;
+    }
 }
 
 /* Autofill overrides for dark theme */
@@ -1637,3 +1697,173 @@ body {
     -webkit-text-fill-color: var(--color-text-primary) !important;
     transition: background-color 5000s ease-in-out 0s;
 }
+
+/* --------------------------------------------------------------------------
+   18. 404 Page (Page Not Found) Layout & Styles
+   -------------------------------------------------------------------------- */
+.page-viewport-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.error-page-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 140px 24px 80px;
+    position: relative;
+    overflow: hidden;
+}
+
+.error-content-box {
+    max-width: 640px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+.error-badge-wrap {
+    margin-bottom: 24px;
+}
+
+.pulse-dot {
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    margin-right: 8px;
+    box-shadow: 0 0 10px var(--color-accent);
+    animation: pulseGlow 2s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.error-code-wrap {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+.error-number {
+    font-family: var(--font-heading);
+    font-size: clamp(4.5rem, 14vw, 9.5rem);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -2px;
+    color: var(--color-text-primary);
+    background: linear-gradient(180deg, #FFFFFF 25%, #AFE607 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 35px rgba(175, 230, 7, 0.30));
+    user-select: none;
+}
+
+.error-headline {
+    font-family: var(--font-heading);
+    font-size: clamp(1.25rem, 4vw, 2.2rem);
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--color-text-primary);
+    margin-bottom: 16px;
+}
+
+.error-description {
+    font-family: var(--font-body);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: var(--color-text-secondary);
+    max-width: 480px;
+    line-height: 1.65;
+    margin-bottom: 34px;
+}
+
+.error-actions {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.error-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 34px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast), background-color var(--transition-fast);
+}
+
+.error-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(175, 230, 7, 0.35);
+}
+
+.error-back-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+}
+
+.error-back-btn svg {
+    transition: transform var(--transition-fast);
+}
+
+.error-back-btn:hover svg {
+    transform: translateX(-4px);
+}
+
+@media (max-width: 768px) {
+    .error-page-main {
+        padding: 120px 20px 60px;
+    }
+    .error-description {
+        margin-bottom: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .error-page-main {
+        padding: 110px 16px 50px;
+    }
+    .error-back-btn {
+        width: 100%;
+        max-width: 280px;
+        justify-content: center;
+        padding: 12px 24px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .error-page-main {
+        padding: 100px 12px 40px;
+    }
+    .error-number {
+        font-size: 4.2rem;
+    }
+    .error-headline {
+        font-size: 1.15rem;
+        letter-spacing: 1.5px;
+    }
+    .error-description {
+        font-size: 0.88rem;
+    }
+    .error-back-btn {
+        max-width: 240px;
+        padding: 10px 18px;
+        font-size: 0.85rem;
+    }
+}
+

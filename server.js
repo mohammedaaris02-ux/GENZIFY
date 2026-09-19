@@ -33,6 +33,16 @@ const server = http.createServer((req, res) => {
     fs.readFile(filePath, (error, content) => {
         if (error) {
             if (error.code === 'ENOENT') {
+                if (cleanUrl === '/favicon.ico') {
+                    res.writeHead(204);
+                    return res.end();
+                }
+                const notFoundPath = path.join(__dirname, '404.html');
+                if (fs.existsSync(notFoundPath)) {
+                    const notFoundContent = fs.readFileSync(notFoundPath);
+                    res.writeHead(404, { 'Content-Type': 'text/html; charset=utf-8' });
+                    return res.end(notFoundContent, 'utf-8');
+                }
                 res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' });
                 res.end('404: File Not Found', 'utf-8');
             } else {
